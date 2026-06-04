@@ -1,27 +1,28 @@
-using System.Security.Cryptography.X509Certificates;
+using System;
 
 public class Entry
 {
-    private string _date;
-    private string _prompt;
-    private string _response;
+    private string _jlbDate;
+    private string _jlbPrompt;
+    private string _jlbResponse;
 
-    public Entry(string date, string prompt, string response)
+    public Entry(string jlbDate, string jlbPrompt, string jlbResponse)
     {
-        _date = date;
-        _prompt= prompt;
-        _response= response;
+        _jlbDate = jlbDate;
+        _jlbPrompt = jlbPrompt;
+        _jlbResponse = jlbResponse;
     }
-public void Display()
+
+    public void jlbDisplayEntry()
     {
-        Console.WriteLine($"Date: {_date}");
-        Console.WriteLine($"Prompt: {_prompt}");
-        Console.WriteLine($"Response: {_response}");
+        Console.WriteLine($"Date: {_jlbDate}");
+        Console.WriteLine($"Prompt: {_jlbPrompt}");
+        Console.WriteLine($"Response: {_jlbResponse}");
         Console.WriteLine();
     }
 
-    public string ToFileString()
+    public string jlbConvertToFileString()
     {
-    return $"{_date}|{_prompt}|(_response)";
+        return $"{_jlbDate}|{_jlbPrompt}|{_jlbResponse}";
     }
 }

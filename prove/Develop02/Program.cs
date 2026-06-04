@@ -1,70 +1,58 @@
 using System;
-using System.Collections.Generic;
 
 class Program
 {
     static void Main(string[] args)
     {
-        Menu menu = new Menu();
-        Journal journal = new Journal();
+        // Creativity / Exceeding Requirements:
+        // I added a separate PromptGenerator class to keep prompt logic separate
+        // from Program.cs. I also included more than five prompts.
 
-        List<string> prompts = new List<string>()
+        Menu jlbMenu = new Menu();
+        Journal jlbJournal = new Journal();
+        PromptGenerator jlbPromptGenerator = new PromptGenerator();
+
+        int jlbChoice = 0;
+
+        while (jlbChoice != 5)
         {
-            "Who was the most interesting person I interacted with today?",
-            "What was the best part of my day?",
-            "How did I see the hand of the Lord in my life today?",
-            "What was the strongest emotion I felt today?",
-            "If I had one thing I could do over today, what would it be?"
-        };
+            jlbMenu.jlbDisplayMenu();
+            jlbChoice = jlbMenu.jlbGetChoice();
 
-        Random random = new Random();
-
-        int choice = 0;
-
-        while (choice != 5)
-        {
-            menu.Display();
-            choice = menu.GetChoice();
-
-            if (choice == 1)
+            if (jlbChoice == 1)
             {
-                int randomIndex = random.Next(prompts.Count);
-                string prompt = prompts[randomIndex];
+                string jlbPrompt = jlbPromptGenerator.jlbGetRandomPrompt();
 
-                Console.WriteLine(prompt);
+                Console.WriteLine(jlbPrompt);
                 Console.Write("> ");
-                string response = Console.ReadLine();
+                string jlbResponse = Console.ReadLine();
 
-                string date = DateTime.Now.ToShortDateString();
+                string jlbDate = DateTime.Now.ToShortDateString();
 
-                Entry entry = new Entry(date, prompt, response);
-                journal.AddEntry(entry);
+                Entry jlbEntry = new Entry(jlbDate, jlbPrompt, jlbResponse);
+                jlbJournal.jlbAddEntry(jlbEntry);
             }
-            else if (choice == 2)
+            else if (jlbChoice == 2)
             {
-                journal.Display();
+                jlbJournal.jlbDisplayJournal();
             }
-            else if (choice == 3)
-            {
-                Console.Write("What is the filename? ");
-                string filename = Console.ReadLine();
-
-                journal.SaveToFile(filename);
-            }
-            else if (choice == 4)
+            else if (jlbChoice == 3)
             {
                 Console.Write("What is the filename? ");
-                string filename = Console.ReadLine();
+                string jlbFilename = Console.ReadLine();
 
-                journal.LoadFromFile(filename);
+                jlbJournal.jlbSaveToFile(jlbFilename);
             }
-            else if (choice == 5)
+            else if (jlbChoice == 4)
+            {
+                Console.Write("What is the filename? ");
+                string jlbFilename = Console.ReadLine();
+
+                jlbJournal.jlbLoadFromFile(jlbFilename);
+            }
+            else if (jlbChoice == 5)
             {
                 Console.WriteLine("Goodbye!");
-            }
-            else
-            {
-                Console.WriteLine("Invalid choice. Please choose a number from 1 to 5.");
             }
 
             Console.WriteLine();

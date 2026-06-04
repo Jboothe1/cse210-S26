@@ -1,36 +1,46 @@
+using System;
+using System.Collections.Generic;
+
 public class Menu
 {
-private List<string> _options;
+    private List<string> _jlbOptions;
 
-public Menu()
+    public Menu()
     {
-        _options = new List<string>
+        _jlbOptions = new List<string>
         {
             "Write a new entry",
-            "Display the Journal", 
+            "Display the journal",
             "Save the journal to a file",
             "Load the journal from a file",
             "Quit"
         };
     }
 
-public void Display()
+    public void jlbDisplayMenu()
     {
-        Console.WriteLine("Please select one of the following options:");
+        Console.WriteLine("Please select one of the following choices:");
 
-        for(int i=0; i < _options.Count; i++)
+        for (int jlbIndex = 0; jlbIndex < _jlbOptions.Count; jlbIndex++)
         {
-            Console.WriteLine($"{i + 1}. {_options[i]}");
+            Console.WriteLine($"{jlbIndex + 1}. {_jlbOptions[jlbIndex]}");
         }
     }
 
-    public int GetChoice()
+    public int jlbGetChoice()
     {
         Console.Write("What would you like to do? ");
-        string userInput = Console.ReadLine();
+        string jlbUserInput = Console.ReadLine();
 
-        int choice = int.Parse(userInput);
-        return choice;
-        
+        int jlbChoice;
+
+        while (!int.TryParse(jlbUserInput, out jlbChoice) || jlbChoice < 1 || jlbChoice > _jlbOptions.Count)
+        {
+            Console.WriteLine("Invalid choice. Please enter a number from 1 to 5.");
+            Console.Write("What would you like to do? ");
+            jlbUserInput = Console.ReadLine();
+        }
+
+        return jlbChoice;
     }
 }

@@ -1,53 +1,67 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+
 public class Journal
 {
-    private List<Entry> _entries;
+    private List<Entry> _jlbEntries;
 
     public Journal()
     {
-        _entries = new List<Entry>();
+        _jlbEntries = new List<Entry>();
     }
 
-    public void AddEntry(Entry entry)
+    public void jlbAddEntry(Entry jlbEntry)
     {
-        _entries.Add(entry);
+        _jlbEntries.Add(jlbEntry);
     }
 
-    public void Display()
+    public void jlbDisplayJournal()
     {
-        foreach (Entry entry in _entries)
+        if (_jlbEntries.Count == 0)
         {
-            entry.Display();
+            Console.WriteLine("The journal is empty.");
         }
-    }
-
-    public void SaveToFile(string filename)
-    {
-        using (StreamWriter outputFile = new StreamWriter(filename))
+        else
         {
-            foreach (Entry entry in _entries)
+            foreach (Entry jlbEntry in _jlbEntries)
             {
-                outputFile.WriteLine(entry.ToFileString());
+                jlbEntry.jlbDisplayEntry();
             }
         }
     }
 
-    public void LoadFromFile(string filename)
+    public void jlbSaveToFile(string jlbFilename)
     {
-        _entries.Clear();
-
-        string[] lines = System.IO.File.ReadAllLines(filename);
-
-        foreach (string line in lines)
+        using (StreamWriter jlbOutputFile = new StreamWriter(jlbFilename))
         {
-            string[] parts = line.Split("|");
-
-            string date = parts[0];
-            string prompt = parts[1];
-            string response = parts[2];
-
-            Entry entry = new Entry(date, prompt, response);
-
-            _entries.Add(entry);
+            foreach (Entry jlbEntry in _jlbEntries)
+            {
+                jlbOutputFile.WriteLine(jlbEntry.jlbConvertToFileString());
+            }
         }
+
+        Console.WriteLine("Journal saved successfully.");
+    }
+
+    public void jlbLoadFromFile(string jlbFilename)
+    {
+        _jlbEntries.Clear();
+
+        string[] jlbLines = System.IO.File.ReadAllLines(jlbFilename);
+
+        foreach (string jlbLine in jlbLines)
+        {
+            string[] jlbParts = jlbLine.Split("|");
+
+            string jlbDate = jlbParts[0];
+            string jlbPrompt = jlbParts[1];
+            string jlbResponse = jlbParts[2];
+
+            Entry jlbEntry = new Entry(jlbDate, jlbPrompt, jlbResponse);
+            _jlbEntries.Add(jlbEntry);
+        }
+
+        Console.WriteLine("Journal loaded successfully.");
     }
 }
