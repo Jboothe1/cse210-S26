@@ -1,44 +1,80 @@
-public class Order 
+using System;
+using System.Collections.Generic;
+
+/* 
+    Name: Josh Boothe
+    Class: CSE 210
+    Description:
+        This Order class stores a customer and a list of products. It can add products,
+        calculate the total order cost including shipping, and return packing and shipping labels.
+
+    Sources:
+        1. https://byui-cse.github.io/cse210-course-2023
+        2. Teacher notes
+        3. Previous CSE 210 project structure
+*/
+
+public class Order
 {
+    //////////// Static/Class Attributes ///////////////////
+    // No static attributes are needed for this class.
 
-    private List<Product> _products;
-    private Customer _customer;
+    //////////// Static/Class Methods ///////////////////
+    // No static methods are needed for this class.
 
+    //////////// Instance Attributes ///////////////////
+    private List<Product> _jlbProducts;
+    private Customer _jlbCustomer;
 
-    public Order (Customer costumer){
-        _customer = costumer;
-        _products = new List<Product>();
-    }
-    public void AddProduct(Product product)
+    //////////// Instance Methods ///////////////////
+
+    /////////// Input Functions ////////////////////////
+    public Order(Customer jlbCustomer)
     {
-        _products.Add(product);
+        _jlbCustomer = jlbCustomer;
+        _jlbProducts = new List<Product>();
     }
 
-    public decimal CalculateTotalCost()
+    /////////// Process State Functions /////////////////
+    public void JlbAddProduct(Product jlbProduct)
     {
-        decimal totalProductPrice = 0;
-        foreach (var product in _products)
+        _jlbProducts.Add(jlbProduct);
+    }
+
+    public decimal JlbCalculateTotalCost()
+    {
+        decimal jlbTotalProductPrice = 0;
+
+        foreach (Product jlbProduct in _jlbProducts)
         {
-            totalProductPrice += product.ProductPrice();
+            jlbTotalProductPrice += jlbProduct.JlbProductPrice();
         }
 
-        decimal shippingCost = _customer.IsUSA() ? 5 : 35;
+        decimal jlbShippingCost = _jlbCustomer.JlbIsUSA() ? 5 : 35;
 
-        return totalProductPrice + shippingCost;
+        return jlbTotalProductPrice + jlbShippingCost;
     }
 
-    public string GetPackingLabel()
+    ////////// Output Functions ///////////////////////
+    public string JlbGetPackingLabel()
     {
-        string packingLabel = $"Packing Label for {_customer.GetCustomerDetails()}:\n";
-        foreach (var product in _products)
+        string jlbPackingLabel = $"Packing Label for {_jlbCustomer.JlbGetCustomerDetails()}:\n";
+
+        foreach (Product jlbProduct in _jlbProducts)
         {
-            packingLabel += product.GetProductDetails() + "\n";
+            jlbPackingLabel += jlbProduct.JlbGetPackingDetails() + "\n";
         }
-        return packingLabel;
+
+        return jlbPackingLabel;
     }
 
-    public string GetShippingLabel()
+    public string JlbGetShippingLabel()
     {
-        return $"Shipping Label for {_customer.GetCustomerDetails()}";
+        return $"Shipping Label for {_jlbCustomer.JlbGetCustomerDetails()}";
+    }
+
+    public string JlbToString()
+    {
+        return $"{JlbGetPackingLabel()}\n{JlbGetShippingLabel()}\nTotal Cost: {JlbCalculateTotalCost():C}";
     }
 }

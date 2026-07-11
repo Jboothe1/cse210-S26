@@ -1,18 +1,52 @@
-public class Lectures: Event
+using System;
+
+/* 
+    Name: Josh Boothe
+    Class: CSE 210
+    Description:
+        This Lectures class inherits from the Event class and adds lecture-specific
+        information including the speaker and maximum capacity. It is used for the
+        Inheritance final project activity.
+
+    Sources:
+        1. https://byui-cse.github.io/cse210-course-2023
+        2. Teacher notes
+        3. Previous CSE 210 project structure
+*/
+
+public class Lectures : Event
 {
-    private string _speaker;
-    private int _maxCapacity;
+    //////////// Static/Class Attributes ///////////////////
+    // No static attributes are needed for this class.
 
-     public Lectures(string title, string description, DateTime date, string time, string street, string city, string speaker, int maxcapacity)
-        : base(title, description, date, time, street, city)
+    //////////// Static/Class Methods ///////////////////
+    // No static methods are needed for this class.
+
+    //////////// Instance Attributes ///////////////////
+    private string _jlbSpeaker;
+    private int _jlbMaxCapacity;
+
+    //////////// Instance Methods ///////////////////
+
+    /////////// Input Functions ////////////////////////
+    public Lectures(string jlbTitle, string jlbDescription, DateTime jlbDate, string jlbTime, string jlbStreet, string jlbCity, string jlbSpeaker, int jlbMaxCapacity)
+        : base(jlbTitle, jlbDescription, jlbDate, jlbTime, jlbStreet, jlbCity)
     {
-        _speaker = speaker;
-        _maxCapacity = maxcapacity;
+        _jlbSpeaker = jlbSpeaker;
+        _jlbMaxCapacity = jlbMaxCapacity;
     }
-    public override string FullDetails()
+
+    /////////// Process State Functions /////////////////
+    // No extra process functions are needed for this class.
+
+    ////////// Output Functions ///////////////////////
+    public override string JlbFullDetails()
     {
-        return $"{base.FullDetails()}\nSpeaker: {_speaker}\nCapacity: {_maxCapacity}";
+        return $"{base.JlbFullDetails()}\nSpeaker: {_jlbSpeaker}\nCapacity: {_jlbMaxCapacity}";
     }
 
-
+    public string JlbToString()
+    {
+        return JlbFullDetails();
+    }
 }

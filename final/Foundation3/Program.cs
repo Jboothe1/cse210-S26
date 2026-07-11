@@ -1,48 +1,116 @@
 using System;
 
+/* 
+    Name: Josh Boothe
+    Class: CSE 210
+    Description:
+        This Program class creates sample events for the Inheritance final project activity.
+        It creates a lecture, reception, and outdoor gathering, then displays the standard
+        details, full details, and short description for each event.
+
+    Sources:
+        1. https://byui-cse.github.io/cse210-course-2023
+        2. Teacher notes
+        3. Previous CSE 210 project structure
+*/
+
 class Program
 {
     static void Main(string[] args)
     {
-        Lectures lectureEvent = new Lectures("The Problem That Wont Let You Go", "On what principle is the world founded? And on what principle should the world be founded?", DateTime.Now, "02:00", "James Street", "Toronto", "Dr. Jordan Peterson", 1500);
+        Console.Clear();
 
-        Reception receptionEvent = new Reception("The Marriage of Figaro", "An Italian event with music", DateTime.Now, "4:00", "Roman Colloseum", "Rome", "RSVP by pigeon");
+        // Input
+            // No user input is required for this project.
 
-        OutdoorGathering outdoorEvent = new OutdoorGathering("Tower of Babel Construction", "We gonna get to heaven the alt route", DateTime.Now, "08:00", "Shinar");
+        // Process
+            // Create Event class instances using derived classes.
 
-        DisplayEventDetails(lectureEvent, "Standard details");
-        DisplayEventDetails(lectureEvent, "Full details");
-        DisplayEventDetails(lectureEvent, "Short description");
+        // Output
+            // Display standard details, full details, and short descriptions.
 
-        DisplayEventDetails(receptionEvent, "Standard details");
-        DisplayEventDetails(receptionEvent, "Full details");
-        DisplayEventDetails(receptionEvent, "Short description");
+        JlbRunEventProgram();
+    }
 
-        DisplayEventDetails(outdoorEvent, "Standard details");
-        DisplayEventDetails(outdoorEvent, "Full details");
-        DisplayEventDetails(outdoorEvent, "Short description");
+    // Project Input functions that call Support Functions
+    // No input functions are needed because the assignment allows sample data to be created in Program.cs.
 
-        static void DisplayEventDetails(Event evento, string messageType)
+    // Project Process functions that call Class
+    public static void JlbRunEventProgram()
     {
-        string message;
+        Lectures jlbLectureEvent = new Lectures(
+            "The Problem That Wont Let You Go",
+            "On what principle is the world founded? And on what principle should the world be founded?",
+            DateTime.Now,
+            "02:00",
+            "James Street",
+            "Toronto",
+            "Dr. Jordan Peterson",
+            1500
+        );
 
-        switch (messageType)
+        Reception jlbReceptionEvent = new Reception(
+            "The Marriage of Figaro",
+            "An Italian event with music",
+            DateTime.Now,
+            "4:00",
+            "Roman Colloseum",
+            "Rome",
+            "RSVP by pigeon"
+        );
+
+        OutdoorGathering jlbOutdoorEvent = new OutdoorGathering(
+            "Tower of Babel Construction",
+            "We gonna get to heaven the alt route",
+            DateTime.Now,
+            "08:00",
+            "Shinar"
+        );
+
+        JlbDisplayAllEventDetails(jlbLectureEvent);
+        JlbDisplayAllEventDetails(jlbReceptionEvent);
+        JlbDisplayAllEventDetails(jlbOutdoorEvent);
+    }
+
+    // Project Output functions that call Support Functions
+    public static void JlbDisplayAllEventDetails(Event jlbEvent)
+    {
+        JlbDisplayEventDetails(jlbEvent, "Standard details");
+        JlbDisplayEventDetails(jlbEvent, "Full details");
+        JlbDisplayEventDetails(jlbEvent, "Short description");
+    }
+
+    public static void JlbDisplayEventDetails(Event jlbEvent, string jlbMessageType)
+    {
+        string jlbMessage;
+
+        switch (jlbMessageType)
         {
             case "Standard details":
-                message = evento.StandardDetails();
+                jlbMessage = jlbEvent.JlbStandardDetails();
                 break;
+
             case "Full details":
-                message = evento.FullDetails();
+                jlbMessage = jlbEvent.JlbFullDetails();
                 break;
+
             case "Short description":
-                message = evento.ShortDescription();
+                jlbMessage = jlbEvent.JlbShortDescription();
                 break;
+
             default:
-                message = "Invalid message type";
+                jlbMessage = "Invalid message type";
                 break;
         }
 
-        Console.WriteLine($"Event Type: {evento.GetType().Name}\nMessage Type: {messageType}\nMessage: {message}\n");
+        JlbPrint($"Event Type: {jlbEvent.GetType().Name}");
+        JlbPrint($"Message Type: {jlbMessageType}");
+        JlbPrint($"Message: {jlbMessage}");
+        JlbPrint("");
     }
+
+    public static void JlbPrint(string jlbText)
+    {
+        Console.WriteLine(jlbText);
     }
 }

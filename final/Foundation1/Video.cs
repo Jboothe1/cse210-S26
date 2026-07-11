@@ -1,33 +1,72 @@
-using System.Runtime.CompilerServices;
+using System;
+using System.Collections.Generic;
+
+/* 
+    Name: Josh Boothe
+    Class: CSE 210
+    Description:
+        This Video class stores the title, author, length, and comments for a video.
+        It is used for the Abstraction final project activity.
+
+    Sources:
+        1. https://byui-cse.github.io/cse210-course-2023
+        2. Teacher notes
+        3. Previous CSE 210 project structure
+*/
 
 public class Video
 {
-    private string _title;
-    private string _author;
-    private float _lengthOfVideo;
-    List<Comment> _comments = new List<Comment>();
+    //////////// Static/Class Attributes ///////////////////
+    // No static attributes are needed for this class.
 
-    public Video(string title, string author, float lengthOfVideo ){
-        _title = title;
-        _author = author;
-        _lengthOfVideo = lengthOfVideo;
-    }
+    //////////// Static/Class Methods ///////////////////
+    // No static methods are needed for this class.
 
-    public void AddComment(string name, string text)
+    //////////// Instance Attributes ///////////////////
+    private string _jlbTitle;
+    private string _jlbAuthor;
+    private float _jlbLengthOfVideo;
+    private List<Comment> _jlbComments = new List<Comment>();
+
+    //////////// Instance Methods ///////////////////
+
+    /////////// Input Functions ////////////////////////
+    public Video(string jlbTitle, string jlbAuthor, float jlbLengthOfVideo)
     {
-        Comment comment = new Comment(name, text);
-        _comments.Add(comment);
+        _jlbTitle = jlbTitle;
+        _jlbAuthor = jlbAuthor;
+        _jlbLengthOfVideo = jlbLengthOfVideo;
     }
 
+    /////////// Process State Functions /////////////////
+    public void JlbAddComment(string jlbName, string jlbText)
+    {
+        Comment jlbComment = new Comment(jlbName, jlbText);
+        _jlbComments.Add(jlbComment);
+    }
 
-    public void DisplayVideo(){
-        Console.WriteLine($"{_title}, {_author}, {_lengthOfVideo}");
-        Console.WriteLine($"Number of comments: {_comments.Count}");
+    public int JlbGetCommentCount()
+    {
+        return _jlbComments.Count;
+    }
+
+    ////////// Output Functions ///////////////////////
+    public void JlbDisplayVideo()
+    {
+        Console.WriteLine($"{_jlbTitle}, {_jlbAuthor}, {_jlbLengthOfVideo}");
+        Console.WriteLine($"Number of comments: {JlbGetCommentCount()}");
         Console.WriteLine("Comments:");
-        foreach (var comment in _comments)
+
+        foreach (Comment jlbComment in _jlbComments)
         {
-            comment.DisplayComment();
+            jlbComment.JlbDisplayComment();
         }
+
+        Console.WriteLine();
     }
-  
+
+    public string JlbToString()
+    {
+        return $"{_jlbTitle}, {_jlbAuthor}, {_jlbLengthOfVideo}";
+    }
 }
